@@ -21,7 +21,7 @@ void print_client(struct sockaddr_in client_address)
 
 int main(void)
 {
-	char server_msg[256] = "Hello, From server";	// server response message
+	char server_msg[256] = "Hello from server";	// server response message
 	char end_msg[256] = "Exiting the server";// server ending message
 	char client_request[256];
 	int client_request_len;
@@ -42,7 +42,6 @@ int main(void)
 	int client_socket = accept(server_socket,(struct sockaddr *)&client_address,&client_address_len);	//accepting the client request
 	print_client(client_address);
 	printf(" and port: %u connected\n",client_address.sin_port);
-	send(client_socket,server_msg,sizeof(server_msg),0);
 	while(1)
 	{
 		memset(client_request,0,sizeof(client_request)); // cleaning the buffer
@@ -50,13 +49,11 @@ int main(void)
 		printf("Message from client: %s\n",client_request);
 		if(strcmp(client_request,"exit")==0)
 		{
-			printf("breaking condition\n");
-			break; // terminating the connection
+			send(client_socket, end_msg,sizeof(end_msg),0);
+			break;
 		}
-		send(client_socket,server_msg,sizeof(server_msg),0);	// sending server_msg to client
+		else send(client_socket,server_msg,sizeof(server_msg),0);	// sending server_msg to client
 	}
-	printf("send this message\n");
-	send(client_socket,end_msg,sizeof(end_msg),0);
 	close(server_socket); // closing the server socket
 	return 0;	
 }

@@ -34,7 +34,7 @@ int main(void)
 		memset(server_response,0,sizeof(server_response)); // cleaning the buffer
 		recv(client_socket,&server_response,sizeof(server_response),0);	//data receiving from the server
 		printf("%s\n",server_response);	//printing data to console
-		if(strcmp(client_request,"exit")==0)break; // termnating condition for the client
+		if(strcmp(client_request,"exit")==0)break;
 	}
 	close(client_socket);	//closing the socket
 	return 0;
