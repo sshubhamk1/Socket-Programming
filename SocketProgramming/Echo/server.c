@@ -15,7 +15,7 @@ int main(void)
 	struct sockaddr_in server_address;	// creating server address
 	server_address.sin_family = AF_INET;	
 	server_address.sin_port = htons(9002);
-	server_address.sin_addr.s_addr = INADDR_ANY;
+	server_address.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	bind(server_socket,(struct sockaddr *)&server_address, sizeof(server_address)); //binding socket to server address
 
